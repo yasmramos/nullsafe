@@ -1,8 +1,8 @@
 # NullSafe - Manejo Seguro de Valores Nulos en Java
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/tu-usuario/nullsafe) 
-[![License](https://img.shields.io/github/license/tu-usuario/nullsafe)](https://github.com/tu-usuario/nullsafe) 
-[![GitHub stars](https://img.shields.io/github/stars/tu-usuario/nullsafe?style=social)](https://github.com/tu-usuario/nullsafe)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/yasmramos/nullsafe) 
+[![License](https://img.shields.io/github/license/tu-usuario/nullsafe)](https://github.com/yasmramos/nullsafe) 
+[![GitHub stars](https://img.shields.io/github/stars/tu-usuario/nullsafe?style=social)](https://github.com/yasmramos/nullsafe)
 
 > Una alternativa más potente que `Optional<T>` para manejar valores nulos de forma segura, limpia y funcional en Java.
 
