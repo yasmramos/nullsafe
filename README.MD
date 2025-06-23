@@ -41,3 +41,61 @@ NullSafe.of("   hola mundo   ")
         .recover(ex -> "VALOR POR DEFECTO")
         .validate(s -> s.contains("HOLA"), "No contiene 'HOLA'")
         .ifPresent(System.out::println);
+
+## 🧩 Integración con Result<T, E> 
+
+Puedes convertir fácilmente entre NullSafe<T> y Result<T, E>:
+
+```java
+ 
+Result<String, String> result = NullSafe.of("valor").toResult("Valor no encontrado");
+
+result.ifSuccess(System.out::println)
+       .ifFailure(err -> System.err.println("Error: " + err));
+
+## 📦 Instalación
+
+##🧪 Pruebas Unitarias
+
+Todas las funciones están cubiertas por pruebas unitarias usando JUnit 5 . Puedes ejecutarlas así:
+```bash 
+   mvn test
+
+O si usas Gradle:
+```bash
+   gradle test
+
+## 📊 Cobertura de Código
+
+Soporta análisis de cobertura con JaCoCo :
+```bash
+   mvn clean test jacoco:report
+
+El informe se genera en:
+
+target/site/jacoco/index.html
+
+## 🧱 Contribuir
+
+¡Estamos abiertos a contribuciones! Si quieres mejorar la librería, corrige errores, añadir nuevas funciones o traducir documentación, ¡adelante! 
+
+   1. Abre un issue
+   2. Haz un fork
+   3. Crea una nueva rama (git checkout -b feature/foo)
+   4. Haz commit de tus cambios (git commit -m 'Add some foo')
+   5. Sube los cambios (git push origin feature/foo)
+   6. Crea un pull request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT .
+
+© 2025 yasmramos / Comunidad Java.
+
+## 📬 Contacto
+
+Si tienes dudas, sugerencias o quieres colaborar: 
+
+    📧 Email: yasmramos95@gmail.com 
+    🐙 GitHub: @yasmramos 
+     
