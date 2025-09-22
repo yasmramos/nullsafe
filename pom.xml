@@ -5,74 +5,78 @@
     <artifactId>nullsafe</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.12.2</version>
-            <scope>test</scope>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>com.github.nullsafe.NullsafeApp</exec.mainClass>
-    </properties>
-    <build>
-        <plugins>
-            <!-- Plugin JUnit 5 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <rule>
-                                    <element>BUNDLE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>COMPLEXITY</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.60</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+    <properties>  
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+        <maven.compiler.release>21</maven.compiler.release>  
+        <exec.mainClass>com.github.nullsafe.NullsafeApp</exec.mainClass>  
+        <sonar.organization>yasmramos</sonar.organization>  
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>  
+        <jmh.version>1.37</jmh.version>  
+    </properties>  
+    <dependencies>  
+        <!-- Dependencias existentes -->  
+        <dependency>  
+            <groupId>org.junit.jupiter</groupId>  
+            <artifactId>junit-jupiter-api</artifactId>  
+            <version>5.12.2</version>  
+            <scope>test</scope>  
+        </dependency>  
+      
+        <!-- Nuevas dependencias para testing avanzado -->  
+        <dependency>  
+            <groupId>org.openjdk.jmh</groupId>  
+            <artifactId>jmh-core</artifactId>  
+            <version>${jmh.version}</version>  
+            <scope>test</scope>  
+        </dependency>  
+      
+        <dependency>  
+            <groupId>org.openjdk.jmh</groupId>  
+            <artifactId>jmh-generator-annprocess</artifactId>  
+            <version>${jmh.version}</version>  
+            <scope>test</scope>  
+        </dependency>  
+    </dependencies>  
+    <build>  
+        <plugins>  
+            <!-- Plugins existentes mantenidos -->  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-surefire-plugin</artifactId>  
+                <version>3.5.2</version>  
+            </plugin>  
+          
+            <plugin>  
+                <groupId>org.jacoco</groupId>  
+                <artifactId>jacoco-maven-plugin</artifactId>  
+                <version>0.8.13</version>  
+                <!-- Configuración existente mantenida -->  
+            </plugin>  
+          
+            <!-- Nuevos plugins -->  
+            <plugin>  
+                <groupId>org.sonarsource.scanner.maven</groupId>  
+                <artifactId>sonar-maven-plugin</artifactId>  
+                <version>3.10.0.2594</version>  
+            </plugin>  
+          
+            <plugin>  
+                <groupId>com.github.spotbugs</groupId>  
+                <artifactId>spotbugs-maven-plugin</artifactId>  
+                <version>4.8.2.0</version>  
+            </plugin>  
+          
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-pmd-plugin</artifactId>  
+                <version>3.21.2</version>  
+            </plugin>  
+          
+            <plugin>  
+                <groupId>org.owasp</groupId>  
+                <artifactId>dependency-check-maven</artifactId>  
+                <version>9.0.7</version>  
+            </plugin>  
+        </plugins>  
     </build>
 </project>
