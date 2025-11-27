@@ -10,11 +10,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Representa el resultado de una operación que puede haber tenido éxito o
- * fallado.
+ * Represents the result of an operation that may have succeeded or
+ * failed.
  *
- * @param <T> tipo del valor en caso de éxito
- * @param <E> tipo del valor/error en caso de fallo
+ * @param <T> type of the value in case of success
+ * @param <E> type of the value/error in case of failure
  */
 public class Result<T, E> implements Serializable {
 
@@ -32,21 +32,21 @@ public class Result<T, E> implements Serializable {
     }
 
     /**
-     * Crea un resultado exitoso.
+     * Creates a successful result.
      */
     public static <T, E> Result<T, E> success(T value) {
         return new Result<>(true, value, null);
     }
 
     /**
-     * Crea un resultado fallido.
+     * Creates a failed result.
      */
     public static <T, E> Result<T, E> failure(E error) {
         return new Result<>(false, null, error);
     }
 
     /**
-     * Verifica si la operación fue exitosa.
+     * Checks if the operation was successful.
      */
     public boolean isSuccess() {
         return success;

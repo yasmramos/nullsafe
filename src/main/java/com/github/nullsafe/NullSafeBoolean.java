@@ -1,4 +1,15 @@
 package com.github.nullsafe;
+/**
+ * A specialized NullSafe implementation for primitive Boolean values.
+ * Provides the same functionality as NullSafe but optimized for Boolean values
+ * to avoid boxing/unboxing overhead.
+ */
+
+/**
+ * A specialized NullSafe implementation for primitive Boolean values.
+ * Provides the same functionality as NullSafe but optimized for Boolean values
+ * to avoid boxing/unboxing overhead.
+ */
 
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;

@@ -6,29 +6,29 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Una interfaz funcional para adaptadores de NullSafe. Representa una función
- * que toma un NullSafe<T> y devuelve un NullSafe<R>.
+ * A functional interface for NullSafe adapters. Represents a function
+ * that takes a NullSafe<T> and returns a NullSafe<R>.
  *
- * @param <T> el tipo del valor de entrada
- * @param <R> el tipo del valor de salida
+ * @param <T> the type of the input value
+ * @param <R> the type of the output value
  */
 @FunctionalInterface
 public interface NullSafeAdapter<T, R> extends Function<NullSafe<T>, NullSafe<R>>, Serializable {
 
     /**
-     * Aplica el adaptador al valor dado.
+     * Applies the adapter to the given value.
      *
-     * @param input el NullSafe<T> de entrada
-     * @return el NullSafe<R> resultante
+     * @param input the input NullSafe<T>
+     * @return the resulting NullSafe<R>
      */
     NullSafe<R> apply(NullSafe<T> input);
 
     /**
-     * Permite encadenar adaptadores: this.andThen(next).
+     * Allows chaining adapters: this.andThen(next).
      *
-     * @param after el siguiente adaptador a aplicar
-     * @param <V> el tipo de salida final
-     * @return un nuevo adaptador compuesto
+     * @param after the next adapter to apply
+     * @param <V> the type of the final output
+     * @return a new composed adapter
      */
     default <V> NullSafeAdapter<T, V> andThen(NullSafeAdapter<R, V> after) {
         Objects.requireNonNull(after);
@@ -36,7 +36,7 @@ public interface NullSafeAdapter<T, R> extends Function<NullSafe<T>, NullSafe<R>
     }
 
     /**
-     * Convierte este adaptador en una función estándar.
+     * Converts this adapter to a standard function.
      */
     default NullSafe<R> applyFunction(NullSafe<T> t) {
         return apply(t);
