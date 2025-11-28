@@ -27,7 +27,7 @@
     
     <scm>  
         <connection>scm:git:git://github.com/yasmramos/nullsafe.git</connection>  
-        <developerConnection>scm:git:ssh://github.com:yasmramos/nullsafe.git</developerConnection>  
+        <developerConnection>scm:git:ssh://github.com:yasmramos/jreactive.git</developerConnection>  
         <url>https://github.com/yasmramos/nullsafe/tree/main</url>  
     </scm>  
   
