@@ -21,15 +21,18 @@ public class NullSafeArray<T> {
      * @return NullSafeArray instance
      */
     @SafeVarargs
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked"})
     public static <T> NullSafeArray<T> of(T... elements) {
         if (elements == null) {
-            return new NullSafeArray<>(Arrays.copyOf(elements, 0, (Class<T[]>) elements.getClass()));
+            T[] emptyArray = (T[]) java.lang.reflect.Array.newInstance(Object.class, 0);
+            return new NullSafeArray<>(emptyArray);
         }
         
-        T[] filtered = Arrays.stream(elements)
+        List<T> filteredList = Arrays.stream(elements)
             .filter(Objects::nonNull)
-            .toArray(len -> Arrays.copyOf(elements, len, (Class<T[]>) elements.getClass()));
+            .collect(Collectors.toList());
+        
+        T[] filtered = (T[]) filteredList.toArray();
         
         return new NullSafeArray<>(filtered);
     }
@@ -43,12 +46,13 @@ public class NullSafeArray<T> {
     @SuppressWarnings("unchecked")
     public static <T> NullSafeArray<T> of(Collection<T> collection) {
         if (collection == null || collection.isEmpty()) {
-            return new NullSafeArray<>(Arrays.copyOf(new Object[0], 0, (Class<T[]>) Object[].class));
+            T[] emptyArray = (T[]) java.lang.reflect.Array.newInstance(Object.class, 0);
+            return new NullSafeArray<>(emptyArray);
         }
         
-        T[] array = collection.stream()
+        T[] array = (T[]) collection.stream()
             .filter(Objects::nonNull)
-            .toArray(len -> Arrays.copyOf(new Object[len], len, (Class<T[]>) Object[].class));
+            .toArray();
         
         return new NullSafeArray<>(array);
     }
@@ -112,10 +116,13 @@ public class NullSafeArray<T> {
      * @param predicate the filter condition
      * @return new NullSafeArray with filtered elements
      */
+    @SuppressWarnings({"unchecked"})
     public NullSafeArray<T> filter(Predicate<T> predicate) {
-        T[] filtered = Arrays.stream(array)
+        List<T> filteredList = Arrays.stream(array)
             .filter(predicate)
-            .toArray(len -> Arrays.copyOf(array, len, array.getClass()));
+            .collect(Collectors.toList());
+        
+        T[] filtered = (T[]) filteredList.toArray();
         
         return new NullSafeArray<>(filtered);
     }
@@ -127,11 +134,14 @@ public class NullSafeArray<T> {
      * @param mapper the transformation function
      * @return new NullSafeArray with mapped elements
      */
+    @SuppressWarnings({"unchecked"})
     public <R> NullSafeArray<R> map(Function<T, R> mapper) {
-        R[] mapped = Arrays.stream(array)
+        List<R> mappedList = Arrays.stream(array)
             .map(mapper)
             .filter(Objects::nonNull)
-            .toArray(len -> Arrays.copyOf(new Object[len], len, (Class<R[]>) Object[].class));
+            .collect(Collectors.toList());
+        
+        R[] mapped = (R[]) mappedList.toArray();
         
         return new NullSafeArray<>(mapped);
     }
@@ -143,14 +153,14 @@ public class NullSafeArray<T> {
      * @param mapper the flatMap function
      * @return new NullSafeArray with flatMapped elements
      */
+    @SuppressWarnings({"unchecked"})
     public <R> NullSafeArray<R> flatMap(Function<T, Collection<R>> mapper) {
         List<R> flattened = Arrays.stream(array)
             .flatMap(t -> mapper.apply(t).stream())
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
         
-        @SuppressWarnings("unchecked")
-        R[] result = flattened.toArray(len -> Arrays.copyOf(new Object[len], len, (Class<R[]>) Object[].class));
+        R[] result = (R[]) flattened.toArray();
         
         return new NullSafeArray<>(result);
     }
@@ -289,7 +299,7 @@ public class NullSafeArray<T> {
         if (fromIndex < 0) fromIndex = 0;
         if (toIndex > array.length) toIndex = array.length;
         if (fromIndex > toIndex) {
-            T[] empty = Arrays.copyOf(array, 0, array.getClass());
+            T[] empty = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), 0);
             return new NullSafeArray<>(empty);
         }
         

@@ -64,29 +64,32 @@ public class NullSafeValidator<T> {
     
     /**
      * Validates string constraints.
-     * 
+     *
      * @return StringValidator for string-specific validations
      */
+    @SuppressWarnings("unchecked")
     public StringValidator ifString() {
-        return new StringValidator(this);
+        return new StringValidator((NullSafeValidator<String>) this);
     }
     
     /**
      * Validates numeric constraints.
-     * 
+     *
      * @return NumberValidator for number-specific validations
      */
+    @SuppressWarnings("unchecked")
     public NumberValidator ifNumber() {
-        return new NumberValidator(this);
+        return new NumberValidator((NullSafeValidator<Number>) this);
     }
     
     /**
      * Validates collection constraints.
-     * 
+     *
      * @return CollectionValidator for collection-specific validations
      */
+    @SuppressWarnings("unchecked")
     public CollectionValidator ifCollection() {
-        return new CollectionValidator(this);
+        return new CollectionValidator((NullSafeValidator<Collection<?>>) this);
     }
     
     /**
