@@ -2,23 +2,23 @@ import java.util.*;
 import java.util.function.*;
 import com.github.nullsafe.NullSafe;
 
-public class NullSafeListCore<T> {
+public class NullSafeList<T> {
     private final List<T> list;
 
-    private NullSafeListCore(List<T> list) {
+    private NullSafeList(List<T> list) {
         this.list = list != null ? new ArrayList<>(list) : new ArrayList<>();
     }
 
-    public static <T> NullSafeListCore<T> of(List<T> list) {
-        return new NullSafeListCore<>(list != null ? list : new ArrayList<>());
+    public static <T> NullSafeList<T> of(List<T> list) {
+        return new NullSafeList<>(list != null ? list : new ArrayList<>());
     }
 
-    public static <T> NullSafeListCore<T> of(T... elements) {
+    public static <T> NullSafeList<T> of(T... elements) {
         return of(elements != null ? Arrays.asList(elements) : new ArrayList<>());
     }
 
-    public static <T> NullSafeListCore<T> empty() {
-        return new NullSafeListCore<>(new ArrayList<>());
+    public static <T> NullSafeList<T> empty() {
+        return new NullSafeList<>(new ArrayList<>());
     }
     
     public int size() {
@@ -40,29 +40,29 @@ public class NullSafeListCore<T> {
         return list.contains(element);
     }
     
-    public NullSafeListCore<T> add(T element) {
+    public NullSafeList<T> add(T element) {
         List<T> newList = new ArrayList<>(list);
         newList.add(element);
-        return new NullSafeListCore<>(newList);
+        return new NullSafeList<>(newList);
     }
     
-    public NullSafeListCore<T> remove(T element) {
+    public NullSafeList<T> remove(T element) {
         List<T> newList = new ArrayList<>(list);
         newList.remove(element);
-        return new NullSafeListCore<>(newList);
+        return new NullSafeList<>(newList);
     }
     
-    public NullSafeListCore<T> filter(Predicate<T> predicate) {
+    public NullSafeList<T> filter(Predicate<T> predicate) {
         List<T> filtered = new ArrayList<>();
         for (T element : list) {
             if (predicate.test(element)) {
                 filtered.add(element);
             }
         }
-        return new NullSafeListCore<>(filtered);
+        return new NullSafeList<>(filtered);
     }
     
-    public <R> NullSafeListCore<R> map(Function<T, R> mapper) {
+    public <R> NullSafeList<R> map(Function<T, R> mapper) {
         List<R> mapped = new ArrayList<>();
         for (T element : list) {
             R result = mapper.apply(element);
@@ -70,7 +70,7 @@ public class NullSafeListCore<T> {
                 mapped.add(result);
             }
         }
-        return new NullSafeListCore<>(mapped);
+        return new NullSafeList<>(mapped);
     }
     
     public List<T> toJavaList() {

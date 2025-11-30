@@ -2,22 +2,22 @@ import java.util.*;
 import java.util.function.*;
 import com.github.nullsafe.NullSafe;
 
-public class NullSafeSetCore<T> {
+public class NullSafeSet<T> {
     private final Set<T> set;
     
-    private NullSafeSetCore(Set<T> set) {
+    private NullSafeSet(Set<T> set) {
         this.set = set != null ? new HashSet<>(set) : new HashSet<>();
     }
     
-    public static <T> NullSafeSetCore<T> of(Set<T> set) {
+    public static <T> NullSafeSet<T> of(Set<T> set) {
         return new NullSafeSet<>(set != null ? set : new HashSet<>());
     }
     
-    public static <T> NullSafeSetCore<T> of(T... elements) {
+    public static <T> NullSafeSet<T> of(T... elements) {
         return of(elements != null ? new HashSet<>(Arrays.asList(elements)) : new HashSet<>());
     }
     
-    public static <T> NullSafeSetCore<T> empty() {
+    public static <T> NullSafeSet<T> empty() {
         return new NullSafeSet<>(new HashSet<>());
     }
     
@@ -42,29 +42,29 @@ public class NullSafeSetCore<T> {
         return set.contains(element);
     }
     
-    public NullSafeSetCore<T> add(T element) {
+    public NullSafeSet<T> add(T element) {
         Set<T> newSet = new HashSet<>(set);
         newSet.add(element);
-        return new NullSafeSetCore<>(newSet);
+        return new NullSafeSet<>(newSet);
     }
 
-    public NullSafeSetCore<T> remove(T element) {
+    public NullSafeSet<T> remove(T element) {
         Set<T> newSet = new HashSet<>(set);
         newSet.remove(element);
-        return new NullSafeSetCore<>(newSet);
+        return new NullSafeSet<>(newSet);
     }
 
-    public NullSafeSetCore<T> filter(Predicate<T> predicate) {
+    public NullSafeSet<T> filter(Predicate<T> predicate) {
         Set<T> filtered = new HashSet<>();
         for (T element : set) {
             if (predicate.test(element)) {
                 filtered.add(element);
             }
         }
-        return new NullSafeSetCore<>(filtered);
+        return new NullSafeSet<>(filtered);
     }
 
-    public <R> NullSafeSetCore<R> map(Function<T, R> mapper) {
+    public <R> NullSafeSet<R> map(Function<T, R> mapper) {
         Set<R> mapped = new HashSet<>();
         for (T element : set) {
             R result = mapper.apply(element);
@@ -72,7 +72,7 @@ public class NullSafeSetCore<T> {
                 mapped.add(result);
             }
         }
-        return new NullSafeSetCore<>(mapped);
+        return new NullSafeSet<>(mapped);
     }
     
     public Set<T> toJavaSet() {
