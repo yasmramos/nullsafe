@@ -5,6 +5,16 @@
  * @param <T> the type being validated
  * @since 1.0
  */
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import java.util.regex.Pattern;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.validation.*;
+
 public class NullSafeValidator<T> {
     private final NullSafe<T> value;
     private final List<ValidationRule<T>> rules;

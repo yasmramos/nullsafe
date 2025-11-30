@@ -214,9 +214,10 @@ public class NullSafe<T> implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof NullSafe<?> other)) {
+        if (!(o instanceof NullSafe)) {
             return false;
         }
+        NullSafe<?> other = (NullSafe<?>) o;
         return Objects.equals(value, other.value);
     }
 

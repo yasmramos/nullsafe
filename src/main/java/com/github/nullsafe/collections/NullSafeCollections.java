@@ -4,6 +4,12 @@
  * 
  * @since 1.0
  */
+import java.util.*;
+import java.util.stream.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import com.github.nullsafe.collections.*;
+
 public final class NullSafeCollections {
     
     private NullSafeCollections() {

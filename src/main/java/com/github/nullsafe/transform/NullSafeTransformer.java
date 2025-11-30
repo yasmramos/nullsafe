@@ -6,6 +6,12 @@
  * @param <R> the output type
  * @since 1.0
  */
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.transform.*;
+
 public class NullSafeTransformer<T, R> {
     private final NullSafe<T> input;
     private final List<TransformationStep<R>> steps;

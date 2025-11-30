@@ -4,6 +4,12 @@
  * 
  * @since 1.0
  */
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.stream.*;
+
 public final class NullSafeStream {
     
     private NullSafeStream() {

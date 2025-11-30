@@ -220,9 +220,10 @@ public class Result<T, E> implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Result<?, ?> other)) {
+        if (!(o instanceof Result)) {
             return false;
         }
+        Result<?, ?> other = (Result<?, ?>) o;
         return success == other.success
                 && Objects.equals(value, other.value)
                 && Objects.equals(error, other.error);

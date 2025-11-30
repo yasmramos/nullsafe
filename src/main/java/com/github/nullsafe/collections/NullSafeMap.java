@@ -6,6 +6,12 @@
  * @param <V> The type of values
  * @since 1.0
  */
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.collections.*;
+
 public class NullSafeMap<K, V> {
     private final Map<K, V> map;
     

@@ -5,28 +5,14 @@
  * @param <T> The type of elements in the array
  * @since 1.0
  */
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.collections.*;
+
 public class NullSafeArray<T> {
     private final T[] array;
-    
-    /**
-     * Creates a NullSafeArray from an existing array.
-     * If the array is null, returns an empty NullSafeArray.
-     * 
-     * @param array the source array
-     * @return NullSafeArray instance
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> NullSafeArray<T> of(T[] array) {
-        if (array == null || array.length == 0) {
-            return new NullSafeArray<>(Arrays.copyOf(array, 0, (Class<T[]>) array.getClass()));
-        }
-        
-        T[] filtered = Arrays.stream(array)
-            .filter(Objects::nonNull)
-            .toArray(len -> Arrays.copyOf(array, len, (Class<T[]>) array.getClass()));
-        
-        return new NullSafeArray<>(filtered);
-    }
     
     /**
      * Creates a NullSafeArray from individual elements.

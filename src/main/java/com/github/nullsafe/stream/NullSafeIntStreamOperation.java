@@ -3,6 +3,13 @@
  * 
  * @since 1.0
  */
+import java.util.stream.*;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalDouble;
+import java.util.function.*;
+import com.github.nullsafe.stream.*;
+
 public class NullSafeIntStreamOperation {
     private final IntStream stream;
     

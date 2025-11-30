@@ -3,6 +3,13 @@
  * 
  * @since 1.0
  */
+import java.util.Map;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+import java.util.function.*;
+import com.github.nullsafe.performance.*;
+import com.github.nullsafe.NullSafe;
+
 public class NullSafePerformanceMonitor {
     private final Map<String, PerformanceMetrics> metrics = new ConcurrentHashMap<>();
     private final ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -163,112 +170,6 @@ public class NullSafePerformanceMonitor {
         @Override
         public R apply(T input) {
             return cache.computeIfAbsent(input, function::apply);
-        }
-    }
-    
-    /**
-     * Lazy NullSafe implementation.
-     */
-    private static class LazyNullSafe<T> implements NullSafe<T> {
-        private volatile T value;
-        private volatile boolean computed = false;
-        private final Supplier<T> supplier;
-        
-        public LazyNullSafe(Supplier<T> supplier) {
-            this.supplier = supplier;
-        }
-        
-        @Override
-        public boolean isEmpty() {
-            return !isPresent();
-        }
-        
-        @Override
-        public T get() {
-            computeIfNeeded();
-            return value;
-        }
-        
-        @Override
-        public boolean isPresent() {
-            computeIfNeeded();
-            return computed && value != null;
-        }
-        
-        @Override
-        public boolean isAbsent() {
-            return !isPresent();
-        }
-        
-        @Override
-        public void ifPresent(Consumer<? super T> action) {
-            if (isPresent()) {
-                action.accept(get());
-            }
-        }
-        
-        @Override
-        public void ifAbsent(Runnable action) {
-            if (isAbsent()) {
-                action.run();
-            }
-        }
-        
-        @Override
-        public NullSafe<T> filter(Predicate<? super T> predicate) {
-            if (isPresent() && predicate.test(get())) {
-                return this;
-            }
-            return NullSafe.empty();
-        }
-        
-        @Override
-        public <U> NullSafe<U> map(Function<? super T, ? extends U> mapper) {
-            if (isPresent()) {
-                return NullSafe.of(mapper.apply(get()));
-            }
-            return NullSafe.empty();
-        }
-        
-        @Override
-        public <U> NullSafe<U> flatMap(Function<? super T, NullSafe<U>> mapper) {
-            if (isPresent()) {
-                return mapper.apply(get());
-            }
-            return NullSafe.empty();
-        }
-        
-        @Override
-        public T orElse(T other) {
-            return isPresent() ? get() : other;
-        }
-        
-        @Override
-        public T orElseGet(Supplier<? extends T> other) {
-            return isPresent() ? get() : other.get();
-        }
-        
-        @Override
-        public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
-            if (isPresent()) {
-                return get();
-            } else {
-                throw exceptionSupplier.get();
-            }
-        }
-        
-        private void computeIfNeeded() {
-            if (!computed) {
-                synchronized (this) {
-                    if (!computed) {
-                        try {
-                            value = supplier.get();
-                        } finally {
-                            computed = true;
-                        }
-                    }
-                }
-            }
         }
     }
 }

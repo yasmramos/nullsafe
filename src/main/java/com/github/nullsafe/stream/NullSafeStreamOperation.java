@@ -5,6 +5,12 @@
  * @param <T> the element type
  * @since 1.0
  */
+import java.util.stream.*;
+import java.util.*;
+import java.util.function.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.stream.*;
+
 public class NullSafeStreamOperation<T> {
     private final Stream<T> stream;
     
