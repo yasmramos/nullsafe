@@ -245,20 +245,20 @@ public class NullSafeArray<T> {
     
     /**
      * Converts to a NullSafeList.
-     * 
+     *
      * @return NullSafeList representation
      */
-    public NullSafeList<T> toList() {
-        return NullSafeList.of(Arrays.asList(array));
+    public List<T> toList() {
+        return Arrays.asList(array);
     }
-    
+
     /**
      * Converts to a NullSafeSet.
-     * 
+     *
      * @return NullSafeSet representation
      */
-    public NullSafeSet<T> toSet() {
-        return NullSafeSet.of(Arrays.asList(array));
+    public Set<T> toSet() {
+        return new HashSet<>(Arrays.asList(array));
     }
     
     /**

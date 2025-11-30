@@ -1,12 +1,11 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class ValidationResult {
+public class ValidationResultCore {
     private final String ruleName;
     private final boolean valid;
     private final String message;
     
-    public ValidationResult(String ruleName, boolean valid, String message) {
+    public ValidationResultCore(String ruleName, boolean valid, String message) {
         this.ruleName = ruleName;
         this.valid = valid;
         this.message = message;
@@ -33,7 +32,7 @@ public class ValidationResult {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        ValidationResult that = (ValidationResult) obj;
+        ValidationResultCore that = (ValidationResultCore) obj;
         return Objects.equals(ruleName, that.ruleName) &&
                valid == that.valid &&
                Objects.equals(message, that.message);

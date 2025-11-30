@@ -2,7 +2,6 @@ package com.github.nullsafe;
 
 import com.github.nullsafe.result.Result;
 import com.github.nullsafe.adapters.NullSafeAdapter;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;

@@ -17,8 +17,8 @@ import com.github.nullsafe.validation.*;
 
 public class NullSafeValidator<T> {
     private final NullSafe<T> value;
-    private final List<ValidationRule<T>> rules;
-    private final List<ValidationResult> results;
+    // private final List<ValidationRule<T>> rules;
+    // private final List<ValidationResult> results;
     
     /**
      * Creates a new NullSafeValidator.
@@ -27,8 +27,8 @@ public class NullSafeValidator<T> {
      */
     public NullSafeValidator(NullSafe<T> value) {
         this.value = value;
-        this.rules = new ArrayList<>();
-        this.results = new ArrayList<>();
+        // this.rules = new ArrayList<>();
+        // this.results = new ArrayList<>();
     }
     
     /**
