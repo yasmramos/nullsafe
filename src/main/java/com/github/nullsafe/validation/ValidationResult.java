@@ -1,10 +1,51 @@
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 /**
  * Represents a single validation rule.
  * 
  * @param <T> the type being validated
  * @since 1.0
  */
-record ValidationRule<T>(String name, Predicate<T> predicate, String errorMessage) {}
+class ValidationRule<T> {
+    private final String name;
+    private final Predicate<T> predicate;
+    private final String errorMessage;
+
+    public ValidationRule(String name, Predicate<T> predicate, String errorMessage) {
+        this.name = name;
+        this.predicate = predicate;
+        this.errorMessage = errorMessage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Predicate<T> getPredicate() {
+        return predicate;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ValidationRule<?> that = (ValidationRule<?>) obj;
+        return Objects.equals(name, that.name) &&
+               Objects.equals(predicate, that.predicate) &&
+               Objects.equals(errorMessage, that.errorMessage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, predicate, errorMessage);
+    }
+}
 
 /**
  * Represents the result of a validation.

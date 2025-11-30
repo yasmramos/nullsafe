@@ -1,7 +1,6 @@
 package com.github.nullsafe.result;
 
 import com.github.nullsafe.NullSafe;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,7 +17,6 @@ import java.util.function.Supplier;
  */
 public class Result<T, E> implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private final boolean success;

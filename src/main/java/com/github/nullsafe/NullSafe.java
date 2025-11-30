@@ -27,7 +27,6 @@ import java.util.stream.Stream;
  */
 public class NullSafe<T> implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private final T value;
