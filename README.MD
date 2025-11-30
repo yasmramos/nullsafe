@@ -28,6 +28,7 @@ Evita los temidos `NullPointerException` y ofrece una API rica y flexible para d
 | ✅ Logging integrado | `.logIfPresent(...)`, `.logIfAbsent(...)` |
 | ✅ Combinación de múltiples valores | `.combine(a, b, (x, y) -> x + y)` |
 | ✅ Uso en colecciones y mapas | Métodos estáticos como `filterNonNull(...)`, `mapNonNullValues(...)` |
+| ✅ Tipos primitivos especializados | `NullSafeInt`, `NullSafeLong`, `NullSafeDouble`, `NullSafeFloat`, `NullSafeBoolean`, `NullSafeByte`, `NullSafeShort` |
 
 ---
 
@@ -54,6 +55,51 @@ Result<String, String> result = NullSafe.of("valor").toResult("Valor no encontra
 result.ifSuccess(System.out::println)
        .ifFailure(err -> System.err.println("Error: " + err));
 ```
+
+## 🔢 Tipos Primitivos NullSafe
+
+Además de `NullSafe<T>`, la librería incluye clases especializadas para manejar tipos primitivos de forma segura:
+
+- **`NullSafeInt`** - Manejo seguro de valores `Integer`
+- **`NullSafeLong`** - Manejo seguro de valores `Long`
+- **`NullSafeDouble`** - Manejo seguro de valores `Double`
+- **`NullSafeFloat`** - Manejo seguro de valores `Float`
+- **`NullSafeBoolean`** - Manejo seguro de valores `Boolean`
+- **`NullSafeByte`** - Manejo seguro de valores `Byte`
+- **`NullSafeShort`** - Manejo seguro de valores `Short`
+
+### Ejemplos de Uso con Tipos Primitivos
+
+```java
+// NullSafeInt
+int result = NullSafeInt.of(42)
+    .ifPresent(value -> System.out.println("Valor: " + value))
+    .orElse(0);
+
+// NullSafeDouble con validaciones
+double price = NullSafeDouble.of(product.getPrice())
+    .validate(p -> p > 0, "El precio debe ser positivo")
+    .orElse(0.0);
+
+// NullSafeBoolean para lógica condicional
+boolean isValid = NullSafeBoolean.of(userInput)
+    .orElse(false);
+
+// Manejo de valores extremos
+NullSafeLong.of(Long.MAX_VALUE)
+    .orElseThrow(() -> new RuntimeException("Valor muy grande"));
+
+NullSafeDouble.of(Double.NaN)
+    .ifPresent(value -> System.out.println("Es NaN: " + value))
+    .orElseGet(() -> 0.0);
+```
+
+### Ventajas de los Tipos Primitivos
+
+- **Rendimiento**: Evitan el boxing/unboxing automático
+- **Memoria**: Menor uso de memoria que los tipos boxing
+- **Seguridad**: Misma protección contra `NullPointerException`
+- **Consistencia**: Misma API que `NullSafe<T>` pero optimizada para primitivos
 ---
 
 ## 📦 Instalación

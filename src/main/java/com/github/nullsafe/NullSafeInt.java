@@ -4,6 +4,11 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * A specialized NullSafe implementation for primitive int values.
+ * Provides the same functionality as NullSafe but optimized for int values
+ * to avoid boxing/unboxing overhead.
+ */
 public class NullSafeInt {
 
     private final Integer value;
@@ -12,6 +17,11 @@ public class NullSafeInt {
         this.value = value;
     }
 
+    /**
+     * Creates a NullSafeInt instance containing the specified value.
+     * @param value the int value to encapsulate
+     * @return a new NullSafeInt instance
+     */
     public static NullSafeInt of(int value) {
         return new NullSafeInt(value);
     }

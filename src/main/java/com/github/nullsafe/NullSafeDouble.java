@@ -4,6 +4,11 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * A specialized NullSafe implementation for primitive double values.
+ * Provides the same functionality as NullSafe but optimized for double values
+ * to avoid boxing/unboxing overhead.
+ */
 public class NullSafeDouble {
 
     private final Double value;
