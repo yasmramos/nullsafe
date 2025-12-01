@@ -8,11 +8,13 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.validation.ValidationRule;
+import com.github.nullsafe.validation.ValidationResult;
 
 public class NullSafeValidator<T> {
     private final NullSafe<T> value;
-    // private final List<ValidationRule<T>> rules;
-    // private final List<ValidationResult> results;
+    private final List<ValidationRule<T>> rules;
+    private final List<ValidationResult> results;
     
     /**
      * Creates a new NullSafeValidator.
@@ -21,8 +23,8 @@ public class NullSafeValidator<T> {
      */
     public NullSafeValidator(NullSafe<T> value) {
         this.value = value;
-        // this.rules = new ArrayList<>();
-        // this.results = new ArrayList<>();
+        this.rules = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
     
     /**
@@ -235,72 +237,80 @@ public class NullSafeValidator<T> {
          * Validates minimum length.
          */
         public StringValidator minLength(int minLength) {
-            return validator.rule("min_length", 
-                                 s -> s != null && s.length() >= minLength,
-                                 "String must be at least " + minLength + " characters");
+            validator.rule("min_length", 
+                         s -> s != null && s.length() >= minLength,
+                         "String must be at least " + minLength + " characters");
+            return this;
         }
         
         /**
          * Validates maximum length.
          */
         public StringValidator maxLength(int maxLength) {
-            return validator.rule("max_length", 
-                                 s -> s != null && s.length() <= maxLength,
-                                 "String must be at most " + maxLength + " characters");
+            validator.rule("max_length", 
+                         s -> s != null && s.length() <= maxLength,
+                         "String must be at most " + maxLength + " characters");
+            return this;
         }
         
         /**
          * Validates exact length.
          */
         public StringValidator length(int exactLength) {
-            return validator.rule("exact_length", 
-                                 s -> s != null && s.length() == exactLength,
-                                 "String must be exactly " + exactLength + " characters");
+            validator.rule("exact_length", 
+                         s -> s != null && s.length() == exactLength,
+                         "String must be exactly " + exactLength + " characters");
+            return this;
         }
         
         /**
          * Validates that string is not empty.
          */
         public StringValidator notEmpty() {
-            return validator.rule("not_empty", 
-                                 s -> s != null && !s.trim().isEmpty(),
-                                 "String cannot be empty");
+            validator.rule("not_empty", 
+                         s -> s != null && !s.trim().isEmpty(),
+                         "String cannot be empty");
+            return this;
         }
         
         /**
          * Validates against a regex pattern.
          */
         public StringValidator matches(String pattern) {
-            return validator.rule("matches", 
-                                 s -> s != null && Pattern.matches(pattern, s),
-                                 "String does not match pattern: " + pattern);
+            validator.rule("matches", 
+                         s -> s != null && Pattern.matches(pattern, s),
+                         "String does not match pattern: " + pattern);
+            return this;
         }
         
         /**
          * Validates that string contains substring.
          */
         public StringValidator contains(String substring) {
-            return validator.rule("contains", 
-                                 s -> s != null && s.contains(substring),
-                                 "String must contain: " + substring);
+            validator.rule("contains", 
+                         s -> s != null && s.contains(substring),
+                         "String must contain: " + substring);
+            return this;
         }
         
         /**
          * Validates that string starts with prefix.
          */
         public StringValidator startsWith(String prefix) {
-            return validator.rule("starts_with", 
-                                 s -> s != null && s.startsWith(prefix),
-                                 "String must start with: " + prefix);
+            validator.rule("starts_with", 
+                         s -> s != null && s.startsWith(prefix),
+                         "String must start with: " + prefix);
+            return this;
         }
         
         /**
          * Validates that string ends with suffix.
          */
         public StringValidator endsWith(String suffix) {
-            return validator.rule("ends_with", 
-                                 s -> s != null && s.endsWith(suffix),
-                                 "String must end with: " + suffix);
+            validator.rule("ends_with", 
+                         s -> s != null && s.endsWith(suffix),
+                         "String must end with: " + suffix);
+            return this;
         }
         
         public NullSafeValidator<String> and() {
@@ -322,83 +332,92 @@ public class NullSafeValidator<T> {
          * Validates minimum value.
          */
         public NumberValidator min(Number minValue) {
-            return validator.rule("min_value", 
-                                 n -> n != null && n.doubleValue() >= minValue.doubleValue(),
-                                 "Number must be at least " + minValue);
+            validator.rule("min_value", 
+                         n -> n != null && n.doubleValue() >= minValue.doubleValue(),
+                         "Number must be at least " + minValue);
+            return this;
         }
         
         /**
          * Validates maximum value.
          */
         public NumberValidator max(Number maxValue) {
-            return validator.rule("max_value", 
-                                 n -> n != null && n.doubleValue() <= maxValue.doubleValue(),
-                                 "Number must be at most " + maxValue);
+            validator.rule("max_value", 
+                         n -> n != null && n.doubleValue() <= maxValue.doubleValue(),
+                         "Number must be at most " + maxValue);
+            return this;
         }
         
         /**
          * Validates range.
          */
         public NumberValidator range(Number min, Number max) {
-            return validator.rule("range", 
-                                 n -> n != null && 
-                                      n.doubleValue() >= min.doubleValue() && 
-                                      n.doubleValue() <= max.doubleValue(),
-                                 "Number must be between " + min + " and " + max);
+            validator.rule("range", 
+                         n -> n != null && 
+                              n.doubleValue() >= min.doubleValue() && 
+                              n.doubleValue() <= max.doubleValue(),
+                         "Number must be between " + min + " and " + max);
+            return this;
         }
         
         /**
          * Validates that number is positive.
          */
         public NumberValidator positive() {
-            return validator.rule("positive", 
-                                 n -> n != null && n.doubleValue() > 0,
-                                 "Number must be positive");
+            validator.rule("positive", 
+                         n -> n != null && n.doubleValue() > 0,
+                         "Number must be positive");
+            return this;
         }
         
         /**
          * Validates that number is non-negative.
          */
         public NumberValidator nonNegative() {
-            return validator.rule("non_negative", 
-                                 n -> n != null && n.doubleValue() >= 0,
-                                 "Number must be non-negative");
+            validator.rule("non_negative", 
+                         n -> n != null && n.doubleValue() >= 0,
+                         "Number must be non-negative");
+            return this;
         }
         
         /**
          * Validates that number is negative.
          */
         public NumberValidator negative() {
-            return validator.rule("negative", 
-                                 n -> n != null && n.doubleValue() < 0,
-                                 "Number must be negative");
+            validator.rule("negative", 
+                         n -> n != null && n.doubleValue() < 0,
+                         "Number must be negative");
+            return this;
         }
         
         /**
          * Validates integer values.
          */
         public NumberValidator isInteger() {
-            return validator.rule("is_integer", 
-                                 n -> n != null && n instanceof Integer,
-                                 "Number must be an integer");
+            validator.rule("is_integer", 
+                         n -> n != null && n instanceof Integer,
+                         "Number must be an integer");
+            return this;
         }
         
         /**
          * Validates long values.
          */
         public NumberValidator isLong() {
-            return validator.rule("is_long", 
-                                 n -> n != null && n instanceof Long,
-                                 "Number must be a long");
+            validator.rule("is_long", 
+                         n -> n != null && n instanceof Long,
+                         "Number must be a long");
+            return this;
         }
         
         /**
          * Validates double values.
          */
         public NumberValidator isDouble() {
-            return validator.rule("is_double", 
-                                 n -> n != null && n instanceof Double,
-                                 "Number must be a double");
+            validator.rule("is_double", 
+                         n -> n != null && n instanceof Double,
+                         "Number must be a double");
+            return this;
         }
         
         public NullSafeValidator<Number> and() {
@@ -420,36 +439,40 @@ public class NullSafeValidator<T> {
          * Validates minimum size.
          */
         public CollectionValidator minSize(int minSize) {
-            return validator.rule("min_size", 
-                                 c -> c != null && c.size() >= minSize,
-                                 "Collection must have at least " + minSize + " elements");
+            validator.rule("min_size", 
+                         c -> c != null && c.size() >= minSize,
+                         "Collection must have at least " + minSize + " elements");
+            return this;
         }
         
         /**
          * Validates maximum size.
          */
         public CollectionValidator maxSize(int maxSize) {
-            return validator.rule("max_size", 
-                                 c -> c != null && c.size() <= maxSize,
-                                 "Collection must have at most " + maxSize + " elements");
+            validator.rule("max_size", 
+                         c -> c != null && c.size() <= maxSize,
+                         "Collection must have at most " + maxSize + " elements");
+            return this;
         }
         
         /**
          * Validates exact size.
          */
         public CollectionValidator size(int exactSize) {
-            return validator.rule("exact_size", 
-                                 c -> c != null && c.size() == exactSize,
-                                 "Collection must have exactly " + exactSize + " elements");
+            validator.rule("exact_size", 
+                         c -> c != null && c.size() == exactSize,
+                         "Collection must have exactly " + exactSize + " elements");
+            return this;
         }
         
         /**
          * Validates that collection is not empty.
          */
         public CollectionValidator notEmpty() {
-            return validator.rule("not_empty", 
-                                 c -> c != null && !c.isEmpty(),
-                                 "Collection cannot be empty");
+            validator.rule("not_empty", 
+                         c -> c != null && !c.isEmpty(),
+                         "Collection cannot be empty");
+            return this;
         }
         
         public NullSafeValidator<Collection<?>> and() {

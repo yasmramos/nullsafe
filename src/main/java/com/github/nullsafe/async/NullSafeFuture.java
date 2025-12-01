@@ -174,9 +174,10 @@ public class NullSafeFuture<T> {
      * @param defaultValue the default value
      * @return new NullSafeFuture with default value
      */
+    @SuppressWarnings("unchecked")
     public NullSafeFuture<T> orElse(T defaultValue) {
-        return new NullSafeFuture<>(
-            future.thenApply(result -> result.orElse(defaultValue))
+        return (NullSafeFuture<T>) new NullSafeFuture<>(
+            (CompletableFuture<NullSafe<T>>) future.thenApply(result -> result.orElse(defaultValue))
         );
     }
     
@@ -186,9 +187,10 @@ public class NullSafeFuture<T> {
      * @param defaultSupplier the default value supplier
      * @return new NullSafeFuture with default value
      */
+    @SuppressWarnings("unchecked")
     public NullSafeFuture<T> orElseGet(Supplier<T> defaultSupplier) {
-        return new NullSafeFuture<>(
-            future.thenApply(result -> result.orElseGet(defaultSupplier))
+        return (NullSafeFuture<T>) new NullSafeFuture<>(
+            (CompletableFuture<NullSafe<T>>) future.thenApply(result -> result.orElseGet(defaultSupplier))
         );
     }
     
@@ -215,8 +217,9 @@ public class NullSafeFuture<T> {
      * 
      * @return the result
      * @throws InterruptedException if interrupted while waiting
+     * @throws ExecutionException if computation threw an exception
      */
-    public NullSafe<T> get() throws InterruptedException {
+    public NullSafe<T> get() throws InterruptedException, ExecutionException {
         return future.get();
     }
     
@@ -228,9 +231,10 @@ public class NullSafeFuture<T> {
      * @return the result
      * @throws TimeoutException if timeout occurs
      * @throws InterruptedException if interrupted while waiting
+     * @throws ExecutionException if computation threw an exception
      */
     public NullSafe<T> get(long timeout, TimeUnit unit) 
-            throws TimeoutException, InterruptedException {
+            throws TimeoutException, InterruptedException, ExecutionException {
         return future.get(timeout, unit);
     }
     

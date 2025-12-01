@@ -43,19 +43,20 @@ public final class NullSafeAsync {
             .map(f -> f.toCompletableFuture())
             .toArray(CompletableFuture[]::new);
         
-        return new NullSafeFuture<NullSafeList<T>>(
-            CompletableFuture.allOf(futuresArray)
-                .thenApply(v -> {
-                    List<T> results = new ArrayList<>();
-                    for (CompletableFuture<NullSafe<T>> future : futuresArray) {
-                        NullSafe<T> result = future.join();
-                        if (result.isPresent()) {
-                            results.add(result.get());
-                        }
-                    }
-                    return NullSafeList.of(results);
-                })
-        );
+        CompletableFuture<Void> allOfFuture = CompletableFuture.allOf(futuresArray);
+        
+        CompletableFuture<NullSafe<NullSafeList<T>>> resultFuture = allOfFuture.thenApply(v -> {
+            List<T> results = new ArrayList<>();
+            for (CompletableFuture<NullSafe<T>> future : futuresArray) {
+                NullSafe<T> result = future.join();
+                if (result.isPresent()) {
+                    results.add(result.get());
+                }
+            }
+            return NullSafe.of(NullSafeList.of(results));
+        });
+        
+        return new NullSafeFuture<NullSafeList<T>>(resultFuture);
     }
     
     /**
@@ -103,7 +104,8 @@ public final class NullSafeAsync {
     public static <T, R> NullSafeFuture<NullSafeList<R>> sequence(List<T> operations, 
                                                                 Function<T, NullSafeFuture<R>> function) {
         if (operations == null || operations.isEmpty()) {
-            return new NullSafeFuture<>(CompletableFuture.completedFuture(NullSafeList.empty()));
+            return new NullSafeFuture<>(CompletableFuture.completedFuture(
+                NullSafe.of(NullSafeList.<R>empty())));
         }
         
         List<NullSafeFuture<R>> futures = new ArrayList<>();
@@ -126,10 +128,12 @@ public final class NullSafeAsync {
      * @param function the function to apply to each element
      * @return NullSafeFuture of results
      */
+    @SuppressWarnings("unchecked")
     public static <T, R> NullSafeFuture<NullSafeList<R>> parallel(List<T> operations, 
                                                                 Function<T, NullSafeFuture<R>> function) {
         if (operations == null || operations.isEmpty()) {
-            return new NullSafeFuture<>(CompletableFuture.completedFuture(NullSafeList.empty()));
+            return new NullSafeFuture<NullSafeList<R>>(
+                CompletableFuture.completedFuture(NullSafe.of(NullSafeList.<R>empty())));
         }
         
         List<NullSafeFuture<R>> futures = operations.stream()
@@ -202,7 +206,12 @@ public final class NullSafeAsync {
         
         return future.recover(throwable -> {
             long delay = baseDelayMs * (1L << attempt);
-            return delay(delay).flatMap(v -> retryInternal(operation, maxRetries, baseDelayMs, attempt + 1)).join();
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            return retryInternal(operation, maxRetries, baseDelayMs, attempt + 1).join();
         });
     }
     
@@ -255,13 +264,15 @@ public final class NullSafeAsync {
      * @param values the values
      * @return NullSafeFuture of values
      */
+    @SuppressWarnings("unchecked")
     public static <T> NullSafeFuture<NullSafeList<T>> futureList(List<T> values) {
         if (values == null || values.isEmpty()) {
-            return new NullSafeFuture<>(CompletableFuture.completedFuture(NullSafeList.empty()));
+            return new NullSafeFuture<NullSafeList<T>>(
+                CompletableFuture.completedFuture(NullSafe.of(NullSafeList.<T>empty())));
         }
         
-        return new NullSafeFuture<>(
-            CompletableFuture.completedFuture(NullSafeList.of(values))
+        return new NullSafeFuture<NullSafeList<T>>(
+            CompletableFuture.completedFuture(NullSafe.of(NullSafeList.of(values)))
         );
     }
     
@@ -273,13 +284,15 @@ public final class NullSafeAsync {
      * @param values the values
      * @return NullSafeFuture of values
      */
+    @SuppressWarnings("unchecked")
     public static <K, V> NullSafeFuture<NullSafeMap<K, V>> futureMap(Map<K, V> values) {
         if (values == null || values.isEmpty()) {
-            return new NullSafeFuture<>(CompletableFuture.completedFuture(NullSafeMap.empty()));
+            return new NullSafeFuture<NullSafeMap<K, V>>(
+                CompletableFuture.completedFuture(NullSafe.of(NullSafeMap.<K, V>empty())));
         }
         
-        return new NullSafeFuture<>(
-            CompletableFuture.completedFuture(NullSafeMap.of(values))
+        return new NullSafeFuture<NullSafeMap<K, V>>(
+            CompletableFuture.completedFuture(NullSafe.of(NullSafeMap.of(values)))
         );
     }
 }

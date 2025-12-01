@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.util.function.*;
+import java.util.Objects;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 import com.github.nullsafe.collections.NullSafeList;
 
 public class NullSafeIntStreamOperation {
@@ -194,7 +198,7 @@ public class NullSafeIntStreamOperation {
      */
     public <R> R collect(Supplier<R> supplier, 
                         ObjIntConsumer<R> accumulator,
-                        BinaryOperator<R> combiner) {
+                        BiConsumer<R,R> combiner) {
         return stream.collect(supplier, accumulator, combiner);
     }
     
@@ -231,7 +235,7 @@ public class NullSafeIntStreamOperation {
      * @return NullSafeList of Integers
      */
     public NullSafeList<Integer> toList() {
-        List<Integer> list = stream.collect(Collectors.toList());
+        List<Integer> list = stream.boxed().collect(Collectors.toList());
         return NullSafeList.of(list);
     }
 }

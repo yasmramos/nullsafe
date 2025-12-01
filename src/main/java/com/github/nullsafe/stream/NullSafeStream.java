@@ -77,7 +77,7 @@ public final class NullSafeStream {
      * @param next the next value function
      * @return NullSafe-enhanced stream
      */
-    public static <T> NullSafeStreamOperation<T> iterate(T seed, Function<T, T> next) {
+    public static <T> NullSafeStreamOperation<T> iterate(T seed, UnaryOperator<T> next) {
         return new NullSafeStreamOperation<>(Stream.iterate(seed, next).filter(Objects::nonNull));
     }
     

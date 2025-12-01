@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.stream.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import com.github.nullsafe.collections.*;
+import java.util.Arrays;
+import com.github.nullsafe.NullSafe;
 
 public final class NullSafeCollections {
     
@@ -20,7 +21,13 @@ public final class NullSafeCollections {
      * @return NullSafeList instance
      */
     public static <T> NullSafeList<T> safeList(Collection<T> collection) {
-        return NullSafeList.of(collection);
+        if (collection == null) {
+            return NullSafeList.empty();
+        }
+        List<T> filteredList = collection.stream()
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+        return NullSafeList.of(filteredList);
     }
     
     /**
@@ -43,7 +50,13 @@ public final class NullSafeCollections {
      * @return NullSafeSet instance
      */
     public static <T> NullSafeSet<T> safeSet(Collection<T> collection) {
-        return NullSafeSet.of(collection);
+        if (collection == null) {
+            return NullSafeSet.empty();
+        }
+        Set<T> filteredSet = collection.stream()
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
+        return NullSafeSet.of(filteredSet);
     }
     
     /**
@@ -173,7 +186,7 @@ public final class NullSafeCollections {
      * @return array containing the two collections
      */
     @SuppressWarnings("unchecked")
-    public static <A, B> NullSafeList<A>[] unzip(NullSafeList<Map.Entry<A, B>> pairs) {
+    public static <A, B> NullSafeList<A>[] unzip(List<Map.Entry<A, B>> pairs) {
         if (pairs == null) {
             return new NullSafeList[]{NullSafeList.empty(), NullSafeList.empty()};
         }
@@ -181,12 +194,12 @@ public final class NullSafeCollections {
         List<A> first = new ArrayList<>();
         List<B> second = new ArrayList<>();
         
-        pairs.get(0).forEach(entry -> {
+        for (Map.Entry<A, B> entry : pairs) {
             if (entry != null) {
                 first.add(entry.getKey());
                 second.add(entry.getValue());
             }
-        });
+        }
         
         return new NullSafeList[]{
             NullSafeList.of(first),
@@ -246,16 +259,26 @@ public final class NullSafeCollections {
         }
         
         if (obj instanceof Collection) {
-            return NullSafeList.of((Collection<?>) obj);
+            Collection<?> collection = (Collection<?>) obj;
+            return NullSafeList.of(collection.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()));
         } else if (obj instanceof Map) {
             Map<?, ?> map = (Map<?, ?>) obj;
-            List<Map.Entry<?, ?>> entries = new ArrayList<>(map.entrySet());
-            return NullSafeList.of(entries);
+            List<Map.Entry<?, ?>> entries = map.entrySet().stream()
+                .filter(entry -> entry != null)
+                .collect(Collectors.toList());
+            @SuppressWarnings("unchecked")
+            NullSafeList<Object> result = (NullSafeList<Object>) NullSafeList.<Object>of((List<Object>) (List<?>) entries);
+            return result;
         } else if (obj.getClass().isArray()) {
             Object[] array = (Object[]) obj;
-            return NullSafeList.of(Arrays.asList(array));
+            List<Object> list = Arrays.stream(array)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+            return NullSafeList.of(list);
         } else {
-            return NullSafeList.of(obj);
+            return NullSafeList.of(Arrays.asList(obj));
         }
     }
 }
