@@ -61,6 +61,22 @@
             <scope>test</scope>  
         </dependency>  
       
+        <!-- JUnit Jupiter Engine para ejecutar las pruebas -->  
+        <dependency>  
+            <groupId>org.junit.jupiter</groupId>  
+            <artifactId>junit-jupiter-engine</artifactId>  
+            <version>5.12.2</version>  
+            <scope>test</scope>  
+        </dependency>  
+      
+        <!-- JUnit Platform Engine para soporte de testing -->  
+        <dependency>  
+            <groupId>org.junit.platform</groupId>  
+            <artifactId>junit-platform-engine</artifactId>  
+            <version>1.12.2</version>  
+            <scope>test</scope>  
+        </dependency>  
+      
         <!-- Nuevas dependencias para testing avanzado -->  
         <dependency>  
             <groupId>org.openjdk.jmh</groupId>  

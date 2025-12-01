@@ -1,3 +1,19 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+// NullSafe imports
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.collections.*;
+import com.github.nullsafe.stream.*;
+import com.github.nullsafe.async.*;
+import com.github.nullsafe.validation.*;
+import com.github.nullsafe.performance.*;
+
 /**
  * Comprehensive test suite for all new NullSafe features.
  * Tests collections, streams, async, validation, transformations, and performance features.
