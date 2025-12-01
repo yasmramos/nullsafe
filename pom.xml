@@ -206,11 +206,18 @@
                 <version>3.21.2</version>
             </plugin>
 
+            <!-- TEMPORARILY DISABLED: OWASP Dependency Check plugin due to NVD API 403 errors -->
+            <!-- TODO: Re-enable once NVD API key is configured or network connectivity issues are resolved -->
+            <!--
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>9.0.7</version>
+                <configuration>
+                    <update>false</update>
+                </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 </project>

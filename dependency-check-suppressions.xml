@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://owasp.org/www十年/html#suppressions">
+    <!-- Suppress warnings about missing NVD API key -->
+    <suppress>
+        <notes><![CDATA[
+            Suppressing warnings about missing NVD API key to avoid 403 errors
+            when external data sources are not accessible.
+        ]]></notes>
+        <regex>API key.*recommended</regex>
+        <type>Warning</type>
+    </suppress>
+</suppressions>
