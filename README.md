@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/yasmramos/nullsafe) 
 [![License](https://img.shields.io/github/license/yasmramos/nullsafe)](https://github.com/yasmramos/nullsafe) 
 [![GitHub stars](https://img.shields.io/github/stars/yasmramos/nullsafe?style=social)](https://github.com/yasmramos/nullsafe)
-[![Tests](https://img.shields.io/badge/tests-73%20%2F%2073%20passing-brightgreen)](https://github.com/yasmramos/nullsafe)
+[![Tests](https://img.shields.io/badge/tests-73%20tests%20passing-brightgreen)](https://github.com/yasmramos/nullsafe)
 
 > A more powerful alternative to `Optional<T>` for handling null values safely, cleanly and functionally in Java.
 
