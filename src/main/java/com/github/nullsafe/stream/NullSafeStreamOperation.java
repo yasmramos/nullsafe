@@ -1,15 +1,11 @@
-/**
- * Enhanced stream operations for NullSafe values.
- * Provides fluent API for stream operations with null-safety.
- * 
- * @param <T> the element type
- * @since 1.0
- */
+package com.github.nullsafe.stream;
+
 import java.util.stream.*;
 import java.util.*;
 import java.util.function.*;
 import com.github.nullsafe.NullSafe;
-import com.github.nullsafe.stream.*;
+import com.github.nullsafe.collections.NullSafeList;
+import com.github.nullsafe.collections.NullSafeSet;
 
 public class NullSafeStreamOperation<T> {
     private final Stream<T> stream;

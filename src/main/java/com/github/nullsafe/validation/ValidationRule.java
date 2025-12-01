@@ -1,3 +1,5 @@
+package com.github.nullsafe.validation;
+
 import java.util.function.Predicate;
 
 public class ValidationRule<T> {

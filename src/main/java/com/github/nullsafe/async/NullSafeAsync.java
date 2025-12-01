@@ -1,14 +1,12 @@
-/**
- * Utility class for NullSafe asynchronous operations.
- * Provides static methods for creating and composing asynchronous operations.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.async;
+
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.stream.*;
-import com.github.nullsafe.async.*;
+import com.github.nullsafe.NullSafe;
+import com.github.nullsafe.collections.NullSafeList;
+import com.github.nullsafe.collections.NullSafeMap;
 
 public final class NullSafeAsync {
     
@@ -37,14 +35,15 @@ public final class NullSafeAsync {
      */
     public static <T> NullSafeFuture<NullSafeList<T>> allOf(List<NullSafeFuture<T>> futures) {
         if (futures == null || futures.isEmpty()) {
-            return new NullSafeFuture<>(CompletableFuture.completedFuture(NullSafeList.empty()));
+            return new NullSafeFuture<>(CompletableFuture.completedFuture(
+                NullSafe.of(NullSafeList.<T>empty())));
         }
         
         CompletableFuture<NullSafe<T>>[] futuresArray = futures.stream()
             .map(f -> f.toCompletableFuture())
             .toArray(CompletableFuture[]::new);
         
-        return new NullSafeFuture<>(
+        return new NullSafeFuture<NullSafeList<T>>(
             CompletableFuture.allOf(futuresArray)
                 .thenApply(v -> {
                     List<T> results = new ArrayList<>();

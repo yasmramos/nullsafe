@@ -1,10 +1,5 @@
-/**
- * Comprehensive validation system for NullSafe values.
- * Provides advanced validation rules and transformation capabilities.
- * 
- * @param <T> the type being validated
- * @since 1.0
- */
+package com.github.nullsafe.validation;
+
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -13,7 +8,6 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import com.github.nullsafe.NullSafe;
-import com.github.nullsafe.validation.*;
 
 public class NullSafeValidator<T> {
     private final NullSafe<T> value;
@@ -163,9 +157,9 @@ public class NullSafeValidator<T> {
      * @param validator the custom validator
      * @return this for chaining
      */
-    public NullSafeValidator<T> custom(ValidationFunction<T> validator) {
+    public NullSafeValidator<T> custom(Function<T, Boolean> validator) {
         return rule("custom", 
-                   validator::validate,
+                   validator::apply,
                    "Custom validation failed");
     }
     
@@ -180,7 +174,7 @@ public class NullSafeValidator<T> {
         if (value.isEmpty()) {
             results.add(new ValidationResult("null_value", true, "Value is null"));
             return new ValidationResult("overall", results.isEmpty() || results.stream().allMatch(ValidationResult::isValid), 
-                                       results);
+                                       "No validation needed");
         }
         
         T actualValue = value.get();
@@ -196,7 +190,7 @@ public class NullSafeValidator<T> {
         }
         
         boolean overallValid = results.stream().allMatch(ValidationResult::isValid);
-        return new ValidationResult("overall", overallValid, results);
+        return new ValidationResult("overall", overallValid, "All validations passed");
     }
     
     /**

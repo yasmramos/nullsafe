@@ -1,10 +1,5 @@
-/**
- * A specialized NullSafe implementation for Array operations.
- * Provides safe operations for arrays that may contain null values or be null themselves.
- * 
- * @param <T> The type of elements in the array
- * @since 1.0
- */
+package com.github.nullsafe.collections;
+
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;

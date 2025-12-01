@@ -1,14 +1,11 @@
-/**
- * Enhanced IntStream operations for NullSafe values.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.stream;
+
 import java.util.stream.*;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalDouble;
 import java.util.function.*;
-import com.github.nullsafe.stream.*;
+import com.github.nullsafe.collections.NullSafeList;
 
 public class NullSafeIntStreamOperation {
     private final IntStream stream;

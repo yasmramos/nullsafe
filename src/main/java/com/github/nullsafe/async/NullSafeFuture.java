@@ -1,17 +1,11 @@
-/**
- * NullSafe operations for Future and CompletableFuture.
- * Provides safe handling of asynchronous operations.
- * 
- * @param <T> the result type
- * @since 1.0
- */
+package com.github.nullsafe.async;
+
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
 import java.util.function.*;
 import java.util.stream.*;
 import com.github.nullsafe.NullSafe;
-import com.github.nullsafe.async.*;
 
 public class NullSafeFuture<T> {
     private final CompletableFuture<NullSafe<T>> future;

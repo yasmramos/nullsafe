@@ -1,3 +1,7 @@
+package com.github.nullsafe.validation;
+
+import java.util.Objects;
+
 public class ValidationResult {
     private final String ruleName;
     private final boolean valid;

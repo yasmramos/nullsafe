@@ -1,11 +1,5 @@
-/**
- * A specialized NullSafe implementation for Map collections.
- * Provides safe operations for maps that may contain null values or be null themselves.
- * 
- * @param <K> The type of keys
- * @param <V> The type of values
- * @since 1.0
- */
+package com.github.nullsafe.collections;
+
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;

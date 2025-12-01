@@ -1,13 +1,9 @@
-/**
- * Performance monitoring utilities for NullSafe operations.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.performance;
+
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
 import java.util.function.*;
-import com.github.nullsafe.performance.*;
 import com.github.nullsafe.NullSafe;
 
 public class NullSafePerformanceMonitor {

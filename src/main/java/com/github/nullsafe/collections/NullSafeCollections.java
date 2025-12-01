@@ -1,9 +1,5 @@
-/**
- * Utility class for working with NullSafe collection operations.
- * Provides static methods to create and manipulate NullSafe collections.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.collections;
+
 import java.util.*;
 import java.util.stream.*;
 import java.util.function.Function;

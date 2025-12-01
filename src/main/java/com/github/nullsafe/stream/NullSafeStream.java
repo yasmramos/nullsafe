@@ -1,14 +1,12 @@
-/**
- * Integration utilities for Java Streams with NullSafe operations.
- * Provides enhanced stream operations with null-safe patterns.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.stream;
+
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 import com.github.nullsafe.NullSafe;
-import com.github.nullsafe.stream.*;
+import com.github.nullsafe.collections.NullSafeList;
+import com.github.nullsafe.collections.NullSafeSet;
+import com.github.nullsafe.collections.NullSafeMap;
 
 public final class NullSafeStream {
     

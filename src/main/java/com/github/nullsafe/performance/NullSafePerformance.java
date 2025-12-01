@@ -1,15 +1,10 @@
-/**
- * Performance optimization utilities for NullSafe operations.
- * Provides caching, pooling, and performance monitoring features.
- * 
- * @since 1.0
- */
+package com.github.nullsafe.performance;
+
 import java.util.function.*;
 import java.util.concurrent.atomic.*;
 import java.util.concurrent.*;
 import java.lang.ref.*;
 import com.github.nullsafe.NullSafe;
-import com.github.nullsafe.performance.*;
 
 public final class NullSafePerformance {
     

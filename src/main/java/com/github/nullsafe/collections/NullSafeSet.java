@@ -1,3 +1,5 @@
+package com.github.nullsafe.collections;
+
 import java.util.*;
 import java.util.function.*;
 import com.github.nullsafe.NullSafe;
