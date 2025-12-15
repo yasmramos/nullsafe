@@ -35,13 +35,15 @@ It prevents dreaded `NullPointerException` and provides a rich and flexible API 
 
 ## ☕ Java 11 Compatibility
 
-This project has been successfully migrated from Java 17 to Java 11, ensuring broad compatibility and future-proof development:
+This project has been fully configured and optimized for Java 11, ensuring broad compatibility and future-proof development:
 
-- ✅ **Migration Completed**: All 666 compilation errors successfully resolved
+- ✅ **Configuration Unified**: All Maven compiler settings consistently use Java 11
 - ✅ **Compilation**: Built with `--release=11` flag for backward compatibility  
 - ✅ **Test Coverage**: 73 tests passing (37 primitive tests + 36 core tests)
 - ✅ **API Compatibility**: All existing features fully maintained
 - ✅ **Performance**: Optimized for Java 11 runtime environment
+
+**Recent Improvements**: Fixed pom.xml inconsistencies by unifying `maven.compiler.source`, `maven.compiler.target`, and plugin configurations to Java 11, ensuring consistent build behavior.
 
 The library works seamlessly with Java 11+ while maintaining full API compatibility with newer Java versions.
 
